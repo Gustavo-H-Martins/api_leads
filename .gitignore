@@ -1,2 +1,3 @@
 # Ignore os arquivos db
 *.db
+__pycache__
