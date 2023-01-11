@@ -1,5 +1,32 @@
-from fastapi import FastAPI  
+from fastapi import FastAPI, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+import crud, modelo
+from db import sessaolocal, motor 
+import json
+modelo.Base.metadata.create_all(bind=motor)
 api = FastAPI()
+
+def get_db():     
+    db = sessaolocal()     
+    try:         
+        yield db     
+    finally:
+         db.close()
+
+
+@api.get('/estabelecimento/estado={Estado}')
+def busca_estabelecimento_estado(Estado: str, db: Session = Depends(get_db)):
+    db_item_estado = crud.get_estabelecimentos_by_estado(db, Estado=Estado)
+    if db_item_estado is None:
+        raise   HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="UF Não encontrada")
+    return db_item_estado
+
+@api.get('/estabelecimento/bandeira={BANDEIRA}')
+def busca_estabelecimento_bandeira(BANDEIRA: str, db: Session = Depends(get_db)):
+    db_item_bandeira = crud.get_estabelecimentos_by_bandeira(db, BANDEIRA=BANDEIRA)
+    if db_item_bandeira is None:
+        raise   HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bandeira Não encontrada")
+    return db_item_bandeira
 
 @api.get('/')
 def get_index():
