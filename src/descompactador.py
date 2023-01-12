@@ -17,7 +17,7 @@ def descompactador(diretorioatual:str = os.getcwd() , diretoriodestino:str =  os
 
     """
     from zipfile import ZipFile, BadZipFile, LargeZipFile
-    os.system('cls')
+    #os.system('cls')
     
     #diretorioatual = os.getcwd()
     #diretoriodestino = f'{diretorioatual}/ESTABELECIMENTOSCSV/'

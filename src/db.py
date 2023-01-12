@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine 
 from sqlalchemy.ext.declarative import declarative_base 
 from sqlalchemy.orm import sessionmaker
-from descompactador import descompactador
+from descompactador  import descompactador
 import os
 # Descompacata o banco que está zipado
-descompactador(diretorioatual='./', diretoriodestino='./')
+descompactador(diretorioatual='./database/', diretoriodestino='./database/')
 
 # descobre o nome do database
 db_name = list(filter(lambda x: '.db' in x, os.listdir(r'./')))[0]
