@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import distinct, func
 import modelo
 
 
@@ -9,9 +10,15 @@ import modelo
     db.refresh(db_item)
     return db_item"""
 
-def get_estabelecimentos_by_estado(db:Session, Estado:str):
-    return db.query(modelo.Item).filter(modelo.Item.Estado == Estado).all()
+def get_estabelecimentos_by_estado(db:Session, estado:str):
+    contagem = db.query(modelo.Item).filter(modelo.Item.Estado == estado).count()
+    return contagem ,db.query(modelo.Item).filter(modelo.Item.Estado == estado).all()
 
-def get_estabelecimentos_by_bandeira(db:Session,BANDEIRA:str):
-    return db.query(modelo.Item).filter(modelo.Item.BANDEIRA == BANDEIRA).all()
+def get_estabelecimentos_by_bandeira(db:Session,bandeira:str):
+    contagem = db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira).count()
+    return contagem, db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira).all()
+
+def get_estabelecimentos_by_bandeira_e_estado(db:Session,estado:str,bandeira:str):
+    contagem = db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira,modelo.Item.Estado == estado).count()
+    return contagem, db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira ,modelo.Item.Estado == estado).all()
     
