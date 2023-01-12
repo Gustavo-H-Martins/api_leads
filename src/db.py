@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from descompactador  import descompactador
 import os
+import sys
+sys.setrecursionlimit(1500)
 # Descompacata o banco que está zipado
 descompactador(diretorioatual='./', diretoriodestino='./')
 

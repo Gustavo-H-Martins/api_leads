@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import distinct, func
+from sqlalchemy import distinct, func, and_
 import modelo
 
 
@@ -10,15 +10,23 @@ import modelo
     db.refresh(db_item)
     return db_item"""
 
+
+
+
+
 def get_estabelecimentos_by_estado(db:Session, estado:str):
-    contagem = db.query(modelo.Item).filter(modelo.Item.Estado == estado).count()
-    return contagem ,db.query(modelo.Item).filter(modelo.Item.Estado == estado).all()
+    estabelecimentos_estado = db.query(modelo.Item).filter(modelo.Item.Estado == estado)
+    contagem = estabelecimentos_estado.count()
+
+    return contagem, estabelecimentos_estado.all()
 
 def get_estabelecimentos_by_bandeira(db:Session,bandeira:str):
-    contagem = db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira).count()
-    return contagem, db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira).all()
+    estabelecimentos_bandeira = db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira)
+    contagem = estabelecimentos_bandeira.count()
+    return  contagem, estabelecimentos_bandeira.all()
 
 def get_estabelecimentos_by_bandeira_e_estado(db:Session,estado:str,bandeira:str):
-    contagem = db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira,modelo.Item.Estado == estado).count()
-    return contagem, db.query(modelo.Item).filter(modelo.Item.BANDEIRA == bandeira ,modelo.Item.Estado == estado).all()
+    bandeira_estado = db.query(modelo.Item).filter(and_(modelo.Item.BANDEIRA == bandeira ,modelo.Item.Estado == estado))
+    contagem = bandeira_estado.count()
+    return  contagem, bandeira_estado
     
