@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module api</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">api</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cabrasel%20nacional%5Cdocuments%5Cgithub%5Capi%5Csrc%5Capi.py">c:\users\abrasel nacional\documents\github\api\src\api.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="crud.html">crud</a><br>
+</td><td class="multicolumn"><a href="json.html">json</a><br>
+</td><td class="multicolumn"><a href="modelo.html">modelo</a><br>
+</td><td class="multicolumn"><a href="starlette.status.html">starlette.status</a><br>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-busca_estabelecimento_bandeira"><strong>busca_estabelecimento_bandeira</strong></a>(BANDEIRA: str, db: sqlalchemy.orm.session.Session = Depends(get_db))</dt><dd><span class="code">Busca&nbsp;dados&nbsp;de&nbsp;estabelecimentos&nbsp;no&nbsp;banco&nbsp;de&nbsp;leads&nbsp;com&nbsp;base&nbsp;nas&nbsp;label&nbsp;de&nbsp;bandeiras</span></dd></dl>
+ <dl><dt><a name="-busca_estabelecimento_bandeira_por_estado"><strong>busca_estabelecimento_bandeira_por_estado</strong></a>(BANDEIRA: str, Estado: str, db: sqlalchemy.orm.session.Session = Depends(get_db))</dt><dd><span class="code">Busca&nbsp;dados&nbsp;de&nbsp;estabelecimentos&nbsp;no&nbsp;banco&nbsp;de&nbsp;leads&nbsp;com&nbsp;base&nbsp;nas&nbsp;UF&nbsp;de&nbsp;estados&nbsp;e&nbsp;labels&nbsp;de&nbsp;BANDEIRAS</span></dd></dl>
+ <dl><dt><a name="-busca_estabelecimento_estado"><strong>busca_estabelecimento_estado</strong></a>(Estado: str, db: sqlalchemy.orm.session.Session = Depends(get_db))</dt><dd><span class="code">Busca&nbsp;dados&nbsp;de&nbsp;estabelecimentos&nbsp;no&nbsp;banco&nbsp;de&nbsp;leads&nbsp;com&nbsp;base&nbsp;nas&nbsp;UF&nbsp;de&nbsp;estados</span></dd></dl>
+ <dl><dt><a name="-get_db"><strong>get_db</strong></a>()</dt></dl>
+ <dl><dt><a name="-get_estabelecimentos"><strong>get_estabelecimentos</strong></a>()</dt></dl>
+ <dl><dt><a name="-get_index"><strong>get_index</strong></a>()</dt></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>api</strong> = &lt;fastapi.applications.FastAPI object&gt;<br>
+<strong>motor</strong> = Engine(sqlite:///./EXTRACAO_DE_LEADS.db)<br>
+<strong>sessaolocal</strong> = sessionmaker(class_='Session', bind=Engine(sqlit...h=False, autocommit=False, expire_on_commit=True)</td></tr></table>
+</body></html>

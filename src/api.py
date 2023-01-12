@@ -16,6 +16,7 @@ def get_db():
 
 @api.get('/estabelecimento/estado={Estado}')
 def busca_estabelecimento_estado(Estado: str, db: Session = Depends(get_db)):
+    """Busca dados de estabelecimentos no banco de leads com base nas UF de estados"""
     db_item_estado = crud.get_estabelecimentos_by_estado(db, estado=Estado.upper())
     if db_item_estado is None:
         raise   HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="UF Não encontrada")
@@ -23,6 +24,7 @@ def busca_estabelecimento_estado(Estado: str, db: Session = Depends(get_db)):
 
 @api.get('/estabelecimento/bandeira={BANDEIRA}')
 def busca_estabelecimento_bandeira(BANDEIRA: str, db: Session = Depends(get_db)):
+    """Busca dados de estabelecimentos no banco de leads com base nas label de bandeiras"""
     db_item_bandeira = crud.get_estabelecimentos_by_bandeira(db, bandeira=BANDEIRA.upper())
     if db_item_bandeira is None:
         raise   HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bandeira Não encontrada")
@@ -30,6 +32,7 @@ def busca_estabelecimento_bandeira(BANDEIRA: str, db: Session = Depends(get_db))
 
 @api.get('/estabelecimento/bandeira={BANDEIRA}/estado={Estado}')
 def busca_estabelecimento_bandeira_por_estado(BANDEIRA: str,Estado:str ,db: Session = Depends(get_db)):
+    """Busca dados de estabelecimentos no banco de leads com base nas UF de estados e labels de BANDEIRAS"""
     db_item_bandeira_estado = crud.get_estabelecimentos_by_bandeira_e_estado(db, bandeira=BANDEIRA.upper(),estado=Estado.upper())
     if db_item_bandeira_estado is None:
         raise   HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="bandeira Não encontrada")
@@ -37,8 +40,21 @@ def busca_estabelecimento_bandeira_por_estado(BANDEIRA: str,Estado:str ,db: Sess
 
 @api.get('/')
 def get_index():
-    return """Api de acesso aos dados de cartões benefícios
-    ALELO, BEN VISA VALE, SODEXO, TICKET, VR"""
+    return ['Api de acesso aos dados de cartões benefícios',
+        'ALELO, BEN VISA VALE, SODEXO, TICKET, VR',
+        'Rode este comando no terminal: ',
+        'cd ./src/',
+        'uvicorn api:api --reload --host 192.168.10.48',
+
+        'após isso acesse os seguintes links:',
+        'http://localhost:8000/estabelecimento/estado=( substitua o que está em parênteses pelo parâmetro)',
+        'exemplo : http://localhost:8000/estabelecimento/estado=to',
+
+        'http://localhost:8000/estabelecimento/bandeira=( substitua o que está em parênteses pelo parâmetro)',
+        'exemplo: http://localhost:8000/estabelecimento/bandeira=benvisavale',
+
+        'http://localhost:8000/estabelecimento/bandeira=( substitua o que está em parênteses pelo parâmetro)/estado=( substitua o que está em parênteses pelo parâmetro)',
+        'exemplo: http://localhost:8000/estabelecimento/bandeira=vr/estado=ac']
 
 @api.get('/estabelecimentos')
 def get_estabelecimentos():
