@@ -1,0 +1,20 @@
+{
+  "name": "api_node",
+  "version": "1.0.0",
+  "description": "Express REST API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "git-repository": "https://github.com/Gustavo-H-Martins/api",
+  "keywords": [],
+  "author": "Gustavo Henrique Lopes Martins",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "md5": "^2.3.0",
+    "sqlite3": "^5.1.4"
+  }
+}

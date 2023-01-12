@@ -1,3 +1,6 @@
 # Ignore os arquivos db
 *.db
 __pycache__
+
+#Ignore todos as variáveis de ambiente NPM
+node_modules 
