@@ -52,7 +52,7 @@ api.get("/employees/:id", (req, res, next) => {
 // Lista de Estabelecimentos por Estado
 api.get("/api/leads/estado=:uf", (req, res, next) =>{
     var params = [req.params.uf]
-    db.all(`SELECT * FROM EXTRAÇÃO_DE_LEADS WHERE Estado = ?`, [req.params.uf.toUpperCase()], (err, rows) => {
+    db.all(`SELECT Estabelecimento, Cidade_UF, Endereço, Telefone, BANDEIRA FROM EXTRAÇÃO_DE_LEADS WHERE Estado = ?`, [req.params.uf.toUpperCase()], (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
             return;
@@ -64,7 +64,7 @@ api.get("/api/leads/estado=:uf", (req, res, next) =>{
 // Lista de Estabelecimentos por Bandeira de cartão
 api.get("/api/leads/bandeira=:bandeira", (req, res, next) =>{
     var params = [req.params.bandeira]
-    db.all(`SELECT * FROM EXTRAÇÃO_DE_LEADS WHERE BANDEIRA = ?`, [req.params.bandeira.toUpperCase()],(err, rows) =>{
+    db.all(`SELECT Estabelecimento, Cidade_UF, Endereço, Telefone, BANDEIRA  FROM EXTRAÇÃO_DE_LEADS WHERE BANDEIRA = ?`, [req.params.bandeira.toUpperCase()],(err, rows) =>{
         if (err) {
             res.status(400).json({"error":err.message});
         }
@@ -75,7 +75,7 @@ api.get("/api/leads/bandeira=:bandeira", (req, res, next) =>{
 // Lista de Estabelecimentos por Bandeira e Estado
 api.get("/api/leads/bandeira=:bandeira/estado=:uf", (req, res, next) =>{
     var params = [req.params.bandeira, req.params.uf]
-    db.all(`SELECT * FROM EXTRAÇÃO_DE_LEADS WHERE BANDEIRA = ? AND Estado = ?`, [req.params.bandeira.toUpperCase(), req.params.uf.toUpperCase()], (err, rows) => {
+    db.all(`SELECT Estabelecimento, Cidade_UF, Endereço, Telefone, BANDEIRA FROM EXTRAÇÃO_DE_LEADS WHERE BANDEIRA = ? AND Estado = ?`, [req.params.bandeira.toUpperCase(), req.params.uf.toUpperCase()], (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message});
         }
