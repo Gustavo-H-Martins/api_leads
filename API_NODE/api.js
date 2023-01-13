@@ -71,7 +71,15 @@ api.get("/api/leads/bandeira=:bandeira", (req, res, next) =>{
         res.status(200).json(rows);
     });
 });
-
+// Lista de Estabelecimentos por Bandeira e Estado
+api.get("/api/leads/all", (req, res, next) =>{
+    db.all(`SELECT Estabelecimento, Cidade_UF, Endereço, Telefone, BANDEIRA FROM EXTRAÇÃO_DE_LEADS`, (err, rows) => {
+        if (err) {
+            res.status(400).json({"error":err.message});
+        }
+        res.status(200).json(rows);
+    });
+});
 // Lista de Estabelecimentos por Bandeira e Estado
 api.get("/api/leads/bandeira=:bandeira/estado=:uf", (req, res, next) =>{
     var params = [req.params.bandeira, req.params.uf]
