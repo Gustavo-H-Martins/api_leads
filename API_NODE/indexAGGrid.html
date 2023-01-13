@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exemplo Tabela AG GRID</title>
+        <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+    </head>
+    <script type="text/javascript" charset="utf-8">
+
+        columnDefs = [
+            { field: 'Estabelecimento' },
+            { field: 'Endereço' },
+            { field: 'Cidade_UF' },
+            { field: 'Telefone' },
+            { field: 'Latitude' },
+            { field: 'Longitude' },
+            { field: 'Municipio' },
+            { field: 'Estado' },
+            { field: 'Logradouro' },
+            { field: 'Numero' },
+            { field: 'PADRAO_IBGE' },
+            { field: 'BANDEIRA' },
+        ];
+
+        const gridOptions = {
+            columnDefs: columnDefs,
+            onGridReady: (event) =>{renderizaDadosNaTabela(event.api)}
+        };
+
+        const eGridDiv = document.getElementById('data-table');
+        new agGrid.Grid(eGridDiv, gridOptions);
+
+        function renderizaDadosNaTabela(api) {
+            fetch('http://192.168.10.48:8000/api/leads/bandeira=vr/estado=ac')
+                .then(function (res) {
+                    return res.json();
+                }).then(function (data) {
+                    api.setRowData(data);
+                })
+        }
+    </script>
+    <body>
+        <style>
+            #data-table {
+                height: 500px;
+                width: 100%;
+            }
+        </style>
+            <h1>Tabela Leads</h1>
+
+        <div id="data-table" class="ag-theme-balham">
+            <tr>
+                <th>Estabelecimento</th>
+                <th>Endereço</th>
+                <th>Cidade_UF</th>
+                <th>Telefone</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Municipio</th>
+                <th>Estado</th>
+                <th>Logradouro</th>
+                <th>Numero</th>
+                <th>PADRAO_IBGE</th>
+                <th>BANDEIRA</th>
+            </tr>
+        </div>
+    </body>
+</html>

@@ -1,84 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
+ <head>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta
+     name="viewport"
+     content="width=device-width, initial-scale=1.0"
+   />
+   <title>Exemplo Tabela AG GRID</title>
+   <!-- Include the JS for AG Grid -->
+   <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+   <!-- Include the core CSS, this is needed by the grid -->
+   <link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css"/>
+   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   <link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"/>
+    <link rel="stylesheet" 
+     href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+ </head>
+ <body>
+    <h1 style="text-align: center;">Tabela Leads</h1>
+   <!-- Button to demonstrate calling the grid's API. -->
+   <button onclick="deselect()">Deselect Rows</button>
+   <!-- The div that will host the grid. ag-theme-alpine is the theme. -->
+   <!-- The gid will be the size that this element is given. -->
+   <div id="tabela"  class="ag-theme-balham" style="height: 500px"></div>
+   <!-- class="ag-theme-balham" -->
+   <!-- class="ag-theme-alpine" -->
+   <script type="text/javascript">
+       // Function to demonstrate calling grid's API
+       function deselect(){
+           gridOptions.api.deselectAll()
+       }
 
-<head>
-    <title>Exemplo Tabela</title>
-</head>
-<script type="text/javascript" charset="utf-8">
-    fetch('http://192.168.10.48:8000/api/leads/bandeira=vr/estado=ac')
-    .then(function (res) {
-        return res.json();
-    }).then(function (apiData) {
-        console.log(apiData);
-        renderizaDadosNaTabela(apiData);
-    })
+       // Grid Options are properties passed to the grid
+       const gridOptions = {
 
-    function renderizaDadosNaTabela(todos) {
-        const tabela = document.getElementById("html-data-table");
-        todos.forEach(todo => {
-            let novaLinha = document.createElement("tr");
-            Object.values(todo).forEach((value) => {
-                let celula = document.createElement("td");
-                celula.innerText = value;
-                novaLinha.appendChild(celula);
-            })
-            tabela.appendChild(novaLinha);
-        });
-    }
-</script>
-<body>
+            // each entry here represents one column
+            columnDefs : [
+            { field: 'Estabelecimento' },
+            { field: 'Endereço' },
+            { field: 'Cidade_UF' },
+            { field: 'Telefone' },
+            { field: 'Latitude' },
+            { field: 'Longitude' },
+            { field: 'Municipio' },
+            { field: 'Estado' },
+            { field: 'Logradouro' },
+            { field: 'Numero' },
+            { field: 'PADRAO_IBGE' },
+            { field: 'BANDEIRA' },
+        ],
+         // default col def properties get applied to all columns
+         defaultColDef: {sortable: true, filter: true},
 
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+         rowSelection: 'multiple', // allow rows to be selected
+         animateRows: true, // have rows animate to new positions when sorted
 
-        td,
-        th {
-            border: 1px solid #232398;
-            text-align: center;
-            padding: 5px;
-        }
-    </style>
+         // example event handler
+         onCellClicked: params => {
+           console.log('cell was clicked', params)
+         }
+       };
 
-    <h1>Lista</h1>
+       // get div to host the grid
+       const eGridDiv = document.getElementById("tabela");
+       // new grid instance, passing in the hosting DIV and Grid Options
+       new agGrid.Grid(eGridDiv, gridOptions);
 
-    <div id="data-table">
-        <table id="html-data-table">
-            <tr>
-                <th>Estabelecimento</th>
-                <th>Endereço</th>
-                <th>Cidade_UF</th>
-                <th>Telefone</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Municipio</th>
-                <th>Estado</th>
-                <th>Logradouro</th>
-                <th>Numero</th>
-                <th>PADRAO_IBGE</th>
-                <th>BANDEIRA</th>
-            </tr>
-            <!--
-                <tr>
-                    <th>PEG PAG RIO DO SONO</th>
-                    <th>AV  BERNARDO SAYAO 0 CENTRO, NOVO ACORDO - TO</th>
-                    <th>NOVO ACORDO TO</th>
-                    <th>63 999997129</th>
-                    <th>-9.96552</th>
-                    <th>-47.6769</th>
-                    <th>NOVO ACORDO</th>
-                    <th>TO</th>
-                    <th>AV  BERNARDO SAYAO 0, CENTRO</th>
-                    <th>0</th>
-                    <th>NOVO ACORDO</th>
-                    <th>VR</th>
-                </tr>
-            -->
-        </table>    
-    </div>
-
-</body>
-
+       // Fetch data from server
+       fetch("http://192.168.10.48:8000/api/leads/bandeira=vr/estado=to")
+       .then(response => response.json())
+       .then(data => {
+         // load fetched data into grid
+         gridOptions.api.setRowData(data);
+       });
+   </script>
+ </body>
 </html>

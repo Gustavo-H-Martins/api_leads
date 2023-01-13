@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Exemplo Tabela</title>
+    </head>
+    <script type="text/javascript" charset="utf-8">
+        fetch('http://192.168.10.48:8000/api/leads/bandeira=vr/estado=ac')
+        .then(function (res) {
+            return res.json();
+        }).then(function (apiData) {
+            console.log(apiData);
+            renderizaDadosNaTabela(apiData);
+        })
+
+        function renderizaDadosNaTabela(todos) {
+            const tabela = document.getElementById("html-data-table");
+            todos.forEach(todo => {
+                let novaLinha = document.createElement("tr");
+                Object.values(todo).forEach((value) => {
+                    let celula = document.createElement("td");
+                    celula.innerText = value;
+                    novaLinha.appendChild(celula);
+                })
+                tabela.appendChild(novaLinha);
+            });
+        }
+    </script>
+    <body>
+
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            td {
+                border: 1px solid #232398;
+                text-align: center;
+                padding: auto;
+            }
+            th {
+                border: 1px solid #232398;
+                text-align: center;
+                padding: auto;
+            }
+            h1 {
+                text-decoration:solid;
+                color: darkgreen;
+                text-decoration-color: yellow;
+                background-origin: padding-box;
+                font-style: oblique;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: large;
+                text-align: center;
+            }
+        </style>
+
+        <h1>Tabela Leads</h1>
+
+        <div id="data-table">
+            <table id="html-data-table">
+                <tr>
+                    <th>Estabelecimento</th>
+                    <th>Endereço</th>
+                    <th>Cidade_UF</th>
+                    <th>Telefone</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Municipio</th>
+                    <th>Estado</th>
+                    <th>Logradouro</th>
+                    <th>Numero</th>
+                    <th>PADRAO_IBGE</th>
+                    <th>BANDEIRA</th>
+                </tr>
+                <!--
+                    <tr>
+                        <th>PEG PAG RIO DO SONO</th>
+                        <th>AV  BERNARDO SAYAO 0 CENTRO, NOVO ACORDO - TO</th>
+                        <th>NOVO ACORDO TO</th>
+                        <th>63 999997129</th>
+                        <th>-9.96552</th>
+                        <th>-47.6769</th>
+                        <th>NOVO ACORDO</th>
+                        <th>TO</th>
+                        <th>AV  BERNARDO SAYAO 0, CENTRO</th>
+                        <th>0</th>
+                        <th>NOVO ACORDO</th>
+                        <th>VR</th>
+                    </tr>
+                -->
+            </table>    
+        </div>
+
+    </body>
+
+</html>
