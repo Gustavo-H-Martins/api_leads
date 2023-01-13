@@ -1,6 +1,13 @@
 const sqlite3 = require('sqlite3');
 const express = require("express");
 var api = express();
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+api.use(cors(corsOptions)) 
 
 const HTTP_PORT = 8000
 api.listen(HTTP_PORT, () => {
