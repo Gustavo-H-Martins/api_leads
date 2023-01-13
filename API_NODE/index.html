@@ -8,36 +8,47 @@
      content="width=device-width, initial-scale=1.0"
    />
    <title>Exemplo Tabela AG GRID</title>
-   <!-- Include the JS for AG Grid -->
+   
+   <!-- coloca o JS para AG Grid -->
    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
-   <!-- Include the core CSS, this is needed by the grid -->
+   
+   <!-- o CSS principal, isso é necessário para a grade -->
    <link rel="stylesheet"
      href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css"/>
-   <!-- Include the theme CSS, only need to import the theme you are going to use -->
+   
+     <!-- o CSS do tema, só precisa importar o tema que vai usar -->
    <link rel="stylesheet"
      href="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"/>
     <link rel="stylesheet" 
      href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
- </head>
+ 
+    </head>
  <body>
     <h1 style="text-align: center;">Tabela Leads</h1>
-   <!-- Button to demonstrate calling the grid's API. -->
-   <button onclick="deselect()">Deselect Rows</button>
-   <!-- The div that will host the grid. ag-theme-alpine is the theme. -->
-   <!-- The gid will be the size that this element is given. -->
+
+   <!-- Botão para demonstrar a chamada da API da grade. -->
+   <button onclick="select()">Selecionar Tudo</button>
+   <button onclick="deselect()">Deselecionar Tudo</button>
+   <input id="uf" placeholder="Insira um valor">
+   <!-- O div que hospedará a grade. ag-theme-alpine é o tema. -->
+   <!-- O gride será do tamanho que este elemento recebe. -->
    <div id="tabela"  class="ag-theme-balham" style="height: 500px"></div>
    <!-- class="ag-theme-balham" -->
    <!-- class="ag-theme-alpine" -->
+
    <script type="text/javascript">
-       // Function to demonstrate calling grid's API
+       
+       // Função para demonstrar a chamada da API da grade
+       function select(){
+           gridOptions.api.selectAll()
+       }
        function deselect(){
            gridOptions.api.deselectAll()
        }
-
-       // Grid Options are properties passed to the grid
+       // Grid Options são propriedades passadas para a grade
        const gridOptions = {
 
-            // each entry here represents one column
+            // cada entrada aqui representa uma coluna
             columnDefs : [
             { field: 'Estabelecimento' },
             { field: 'Endereço' },
@@ -52,28 +63,28 @@
             { field: 'PADRAO_IBGE' },
             { field: 'BANDEIRA' },
         ],
-         // default col def properties get applied to all columns
+         // as propriedades col def padrão são aplicadas a todas as colunas
          defaultColDef: {sortable: true, filter: true},
 
-         rowSelection: 'multiple', // allow rows to be selected
-         animateRows: true, // have rows animate to new positions when sorted
+         rowSelection: 'multiple', // permite que linhas sejam selecionadas
+         animateRows: true, // ter linhas animadas para novas posições quando classificadas
 
-         // example event handler
+         // exemplo de manipulador de eventos
          onCellClicked: params => {
-           console.log('cell was clicked', params)
+           console.log('A célula ', params ,' foi clicada')
          }
        };
 
-       // get div to host the grid
+       // pega a div para hospedar a grade
        const eGridDiv = document.getElementById("tabela");
-       // new grid instance, passing in the hosting DIV and Grid Options
+       // nova instância do grid, passando na hospedagem DIV e Grid Options
        new agGrid.Grid(eGridDiv, gridOptions);
-
-       // Fetch data from server
-       fetch("http://192.168.10.48:8000/api/leads/bandeira=vr/estado=to")
+       let uf = document.getElementById("uf");
+       // Busca dados do servidor
+       fetch(`http://192.168.10.48:8000/api/leads/bandeira=vr/estado=to`)
        .then(response => response.json())
        .then(data => {
-         // load fetched data into grid
+         // carrega os dados buscados na grade
          gridOptions.api.setRowData(data);
        });
    </script>
