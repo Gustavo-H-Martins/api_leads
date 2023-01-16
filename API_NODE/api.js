@@ -9,6 +9,9 @@ const corsOptions ={
 }
 api.use(cors(corsOptions)) 
 
+var ip = require("ip");
+console.dir ( ` O Servidor tem o seguinte IP Público Local ${ip.address()} `);
+
 const HTTP_PORT = 8000
 api.listen(HTTP_PORT, () => {
     console.log("O servidor está escutando na porta " + HTTP_PORT);

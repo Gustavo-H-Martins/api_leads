@@ -1,8 +1,10 @@
 function atualizaPainel(){
     var vEstado = document.getElementById('uf').value;
-    var vCartao = document.getElementById("Cartao").value;
-    var url = (`http://192.168.10.48:8000/api/leads/bandeira=${vCartao}/estado=${vEstado}`);
-    // alert(url);
+    var Select = document.getElementById("Cartao").selectedIndex;
+    var Option = document.getElementById("Cartao").options;
+    var vOption = Option[Select].value;
+    var url = (`http://192.168.10.66:8000/api/leads/bandeira=${vOption}/estado=${vEstado}`);
+    alert(url)
 fetch(url)
 .then(function (res) {
     return res.json();
@@ -24,3 +26,6 @@ function renderizaDadosNaTabela(todos) {
         tabela.appendChild(novaLinha);
     });
 }
+
+    //var ip = require("ip");
+    //alert(`O Servidor tem o seguinte IP Público Local ${ip.address()}`);
