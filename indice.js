@@ -4,7 +4,7 @@ function atualizaPainel(){
     var Option = document.getElementById("Cartao").options;
     var vOption = Option[Select].value;
     var url = (`http://192.168.10.66:8000/api/leads/bandeira=${vOption}/estado=${vEstado}`);
-    alert(url)
+    //alert(url)
 fetch(url)
 .then(function (res) {
     return res.json();
