@@ -9,7 +9,8 @@ fetch(url)
 .then(function (res) {
     return res.json();
 }).then(function (apiData) {
-    console.log(apiData);
+    document.getElementById("contagem-cartao").innerHTML = contagem = Object.keys(apiData).length;
+    
     renderizaDadosNaTabela(apiData);
 })
 }
