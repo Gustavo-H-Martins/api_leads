@@ -3,7 +3,7 @@ function atualizaPainel(){
     var Select = document.getElementById("Cartao").selectedIndex;
     var Option = document.getElementById("Cartao").options;
     var vOption = Option[Select].value;
-    var url = (`http://192.168.10.66:8000/api/leads/bandeira=${vOption}/estado=${vEstado}`);
+    var url = (`https://abrasel-leads.gustavo-h-marti.repl.co/api/leads/bandeira=${vOption}/estado=${vEstado}`);
     //alert(url)
 fetch(url)
 .then(function (res) {
