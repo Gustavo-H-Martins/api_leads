@@ -51,7 +51,7 @@ const db = new sqlite3.Database('./EXTRACAO_DE_LEADS.db', (err) => {
       });
     });
     // Lista de Estabelecimentos TODOS
-    api.get("/api/leads", async (req, res, next) => {
+    api.get("/api/leads/bandeiras/estados", async (req, res, next) => {
       // definindo encoding da resposta da api
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       const headers = {
