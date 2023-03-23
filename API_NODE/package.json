@@ -4,7 +4,7 @@
   "description": "Express REST API",
   "main": "api.js",
   "scripts": {
-    "start": "node api.js",
+    "start": "nodemon",
     "swagger-autogen": "node swagger.js",
     "test": "echo 'Error: no test specified' && exit 1"
   },
@@ -16,5 +16,8 @@
     "sqlite3": "^5.1.4",
     "swagger-autogen": "^2.22.0",
     "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
