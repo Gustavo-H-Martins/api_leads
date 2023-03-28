@@ -1,0 +1,147 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Leads API Abrasel",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http", "https"
+  ],
+  "paths": {
+    "/api/v2/leads/all/{page}/{pageSize}": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json; charset=utf-8"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v2/leads/bandeira=all/estado={uf}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "uf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v2/leads/bandeira={bandeira}/estado=all": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "bandeira",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v2/leads/bandeira={bandeira}/estado={uf}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "bandeira",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v2/leads/bandeira={bandeira}/estado={uf}/cidade={cidade}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "bandeira",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cidade",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
