@@ -9,7 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 var IP = require("ip");
 const app = express();
 
-const PORT = 3001;
+const PORT = 3000;
 
 /**
  * Routes.
@@ -19,7 +19,12 @@ const leadsRouter = require('./routes/leads');
 /**
  * Middlewares
  */
-
+// coleta o ip do cliente
+app.use((req, _res, next) => {
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    console.log(`IP do cliente: ${ip}`);
+    next();
+  });
 // analisa solicitações recebidas com cargas JSON 
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
