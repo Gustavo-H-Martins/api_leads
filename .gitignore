@@ -4,3 +4,6 @@ __pycache__
 
 #Ignore todos as variáveis de ambiente NPM
 node_modules
+
+# ignore as variáveisAmbiente
+variaveisAmbiente.js
