@@ -35,8 +35,21 @@ $ npm start
 ## Rotas da API
 A API possui as seguintes [rotas](./app/routes/leads.js):
 
-* #### GET `/api/v2/leads/all/{page}/{pageSize}` 
-Retorna uma lista de leads determinado pelo número da página e tamanho.
+* #### GET `/api/v2/leads/estabelecimentos/` 
+Este endpoint retorna uma lista de estabelecimentos. Você pode filtrar os resultados usando os parâmetros de consulta `bandeira`, `uf` e `cidade`. Esses parâmetros são opcionais e podem ser usados em qualquer combinação. Por exemplo, você pode fornecer apenas o parâmetro `bandeira` para retornar estabelecimentos de uma determinada bandeira em todos os estados e cidades.
+
+Você também pode usar os parâmetros de consulta `page` e `pageSize` para implementar a paginação dos resultados. O parâmetro `page` especifica o número da página a ser retornada, enquanto o parâmetro `pageSize` especifica o número de resultados por página. Se esses parâmetros não forem fornecidos, serão usados valores padrão de `1` e `100`, respectivamente.
+
+O endpoint aceita um cabeçalho opcional `x-forwarded-for`, que pode ser usado para especificar o endereço IP do cliente.
+
+O endpoint retorna um código de status HTTP 200 em caso de sucesso, juntamente com um array JSON contendo os estabelecimentos correspondentes aos critérios de pesquisa. Em caso de erro, o endpoint retorna um código de status HTTP 500 com uma mensagem de erro.
+
+exemplos de uso
+
+        /estabelecimentos?bandeira=sodexo&uf=SP&cidade=Sao-Paulo&page=2&pageSize=20
+        /estabelecimentos?bandeira=sodexo&uf=SP&page=3
+        /estabelecimentos?uf=RJ
+        /estabelecimentos
 * #### GET `/api/v2/leads/bandeira=all/estado={uf}` 
 Retorna uma lista de leads determinado pelo estado selecionado
 * #### GET `/api/v2/leads/bandeira={bandeira}/estado=all`

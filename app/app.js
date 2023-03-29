@@ -37,11 +37,11 @@ app.use(cors())
 app.use(express.urlencoded({extended: true}));
 
 // analisa as solicitações recebida e passa para o routes estabelecimentos com
-app.use('/api/v2/leads', leadsRouter);
+app.use('/api/leads/v2', leadsRouter);
 
 // direciona para a página com a documentação da api
 const swaggerFile = require('./swagger/swagger.json');
-app.use('/api/v2/leads/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/api/leads/v2/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // starta a api service
 function onStart(){

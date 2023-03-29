@@ -14,43 +14,44 @@ const router = require('express').Router();
  */
 
 // GetAll
-router.route('/all/:page/:pageSize')
-  .get(function(req, res, next) {
-    // definindo encoding da resposta da api
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': '*',
-    }
-    if (req.method === 'OPTIONS') {
-      res.writeHead(204, headers)
-      res.end()
-      return
-    }
-    const clientIp = req.ip;
-    const page = parseInt(req.params.page);
-    const pageSize = parseInt(req.params.pageSize);
-    const offset = (page - 1) * pageSize;
-    const query = `SELECT * FROM EXTRAÇÃO_DE_LEADS LIMIT ? OFFSET ?;`;
+router.route("/estabelecimentos")
+    .get(function(req, res, next){
+        const clientIp = req.ip;
+        const bandeira = req.query.bandeira ? [req.query.bandeira.toUpperCase()] : null;
+        const uf = req.query.uf ? [req.query.uf.toUpperCase()] : null;
+        const cidade = req.query.cidade ? [req.query.cidade.toUpperCase().replace(/-/g, ' ')] : null;
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 100;
+        const offset = (page - 1) * pageSize;
 
-    db.all(query, [pageSize, offset], (err, rows) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send({ error: 'Erro no servidor interno da api!' });
-        return;
-      }
-        // Formatando data e hora para incluir no log
-        const date = new Date()
-        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`; // formata a data como DD/MM/AAAA
-        const formattedTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`; // formata a hora como HH:MM:SS
-        dataChamada = `Data: ${formattedDate} - Hora: ${formattedTime}`
-        logToDatabase(clientIp,`Retornando ${rows.length} dados, para o ip: ${ip}`, 'INFO', new Date())
-        res.json(rows);
-    });
-  });
+        let query = `SELECT * FROM EXTRAÇÃO_DE_LEADS`;
+        let conditions = [];
+        if (bandeira) conditions.push(`BANDEIRA = "${bandeira}"`);
+        if (uf) conditions.push(`Estado = "${uf}"`);
+        if (cidade) conditions.push(`Municipio = "${cidade}"`);
+        if (conditions.length > 0) query += ` WHERE ${conditions.join(' AND ')}`;
+        query += ` LIMIT ? OFFSET ?`;
+        
+        db.all(query, [pageSize, offset], (err, rows) => {
+            if (err){
+                res.status(500).json({error: err.message});
+                return;
+            }   
+            console.log(query)
+                // Formatando data e hora para incluir no log
+                const date = new Date()
+                const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`; // formata a data como DD/MM/AAAA
+                const formattedTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`; // formata a hora como HH:MM:SS
+                dataChamada = `Data: ${formattedDate} - Hora: ${formattedTime}`
+                logToDatabase(clientIp,`Retornando ${rows.length} dados de "${bandeira}" no estado de "${uf}" município de ${cidade}`, 'INFO', dataChamada)
+                res.status(200).json(
+                    rows
+                );
+        });
+    })
 
 // Lista de Estabelecimentos por Estado
-router.route("/bandeira=all/estado=:uf")
+router.route("/estabelecimentos/bandeira=all/estado=:uf")
     .get(function(req, res, next) {
         const estado = [req.params.uf.toUpperCase()]
         const clientIp = req.ip;
@@ -71,8 +72,9 @@ router.route("/bandeira=all/estado=:uf")
                 );
         });
 })
+
 // Lista de Estabelecimentos por Bandeira de cartão
-router.route("/bandeira=:bandeira/estado=all") 
+router.route("/estabelecimentos/bandeira=:bandeira/estado=all") 
     .get(function(req, res, next) {
         const clientIp = req.ip;
         const bandeira = [req.params.bandeira.toUpperCase()]
@@ -95,7 +97,7 @@ router.route("/bandeira=:bandeira/estado=all")
 })
 
 // Lista de Estabelecimentos por Bandeira e Estado
-router.route("/bandeira=:bandeira/estado=:uf")
+router.route("/estabelecimentos/bandeira=:bandeira/estado=:uf")
     .get(function(req, res, next){
         const clientIp = req.ip;
         const bandeira = [req.params.bandeira.toUpperCase()]
@@ -118,7 +120,7 @@ router.route("/bandeira=:bandeira/estado=:uf")
         });
     })
 // Lista de Estabelecimentos por Bandeira, Estado e Município
-router.route("/bandeira=:bandeira/estado=:uf/cidade=:cidade")
+router.route("/estabelecimentos/bandeira=:bandeira/estado=:uf/cidade=:cidade")
     .get(function(req, res, next){
         const clientIp = req.ip;
         const bandeira = [req.params.bandeira.toUpperCase()]

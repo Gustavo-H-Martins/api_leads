@@ -2,32 +2,47 @@
   "swagger": "2.0",
   "info": {
     "version": "2.0.0",
-    "title": "Leads API Abrasel",
-    "description": ""
+    "title": "Leads Abrasel",
+    "description": "Api de acessso a registros de leads de vouchers para estabelecimentos associados abrasel."
   },
   "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "http", "https"
+    "https","http"
   ],
   "paths": {
-    "/api/v2/leads/all/{page}/{pageSize}": {
+    "/api/leads/v2/estabelecimentos": {
       "get": {
         "description": "",
-        "produces": [
-          "application/json; charset=utf-8"
-        ],
         "parameters": [
           {
+            "name": "x-forwarded-for",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "bandeira",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "uf",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "cidade",
+            "in": "query",
+            "type": "string"
+          },
+          {
             "name": "page",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "type": "string"
           },
           {
             "name": "pageSize",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "type": "string"
           }
         ],
@@ -41,7 +56,7 @@
         }
       }
     },
-    "/api/v2/leads/bandeira=all/estado={uf}": {
+    "/api/leads/v2/estabelecimentos/bandeira=all/estado={uf}": {
       "get": {
         "description": "",
         "parameters": [
@@ -50,26 +65,10 @@
             "in": "path",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/v2/leads/bandeira={bandeira}/estado=all": {
-      "get": {
-        "description": "",
-        "parameters": [
           {
-            "name": "bandeira",
-            "in": "path",
-            "required": true,
+            "name": "x-forwarded-for",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -83,7 +82,7 @@
         }
       }
     },
-    "/api/v2/leads/bandeira={bandeira}/estado={uf}": {
+    "/api/leads/v2/estabelecimentos/bandeira={bandeira}/estado=all": {
       "get": {
         "description": "",
         "parameters": [
@@ -94,9 +93,8 @@
             "type": "string"
           },
           {
-            "name": "uf",
-            "in": "path",
-            "required": true,
+            "name": "x-forwarded-for",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -110,7 +108,39 @@
         }
       }
     },
-    "/api/v2/leads/bandeira={bandeira}/estado={uf}/cidade={cidade}": {
+    "/api/leads/v2/estabelecimentos/bandeira={bandeira}/estado={uf}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "bandeira",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "uf",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-forwarded-for",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/leads/v2/estabelecimentos/bandeira={bandeira}/estado={uf}/cidade={cidade}": {
       "get": {
         "description": "",
         "parameters": [
@@ -130,6 +160,11 @@
             "name": "cidade",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-forwarded-for",
+            "in": "header",
             "type": "string"
           }
         ],
