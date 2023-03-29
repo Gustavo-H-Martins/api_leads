@@ -71,4 +71,4 @@ Crie um pull request para o repositório original.
 
 [![Gustavo-H-Martins](https://github-readme-stats.vercel.app/api?username=Gustavo-H-Martins&show_icons=true&theme=radical)](https://github.com/Gustavo-H-Martins)
 ## Licença
-Este projeto está sob a licença Apache License 2.0. Consulte o arquivo [LICENSE](./licence) para mais detalhes.
+Este projeto não tem licença de uso mais. Consulte o arquivo [LICENSE](./licence) para mais detalhes.
