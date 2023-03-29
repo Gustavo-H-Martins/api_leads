@@ -69,5 +69,6 @@ Salve suas alterações e faça um commit: `git commit -m "Minha feature"`
 Envie suas alterações para o seu fork: `git push origin minha-feature`
 Crie um pull request para o repositório original.
 
+[![Gustavo-H-Martins](https://github-readme-stats.vercel.app/api?username=Gustavo-H-Martins&show_icons=true&theme=radical)](https://github.com/Gustavo-H-Martins)
 ## Licença
 Este projeto está sob a licença Apache License 2.0. Consulte o arquivo [LICENSE](./licence) para mais detalhes.
