@@ -7,3 +7,6 @@ node_modules
 
 # ignore as variáveisAmbiente
 variaveisAmbiente.js
+
+# ignore a pasta sec
+sec

@@ -4,7 +4,7 @@
  */
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-
+const caminhoAtual =  `${__dirname}`.replace('config', 'files/EXTRACAO_DE_LEADS.db')
 // Configuração do servidor
 const dbFile = require('./variaveisAmbiente')
 // Conectar ao banco de dados SQLite3
