@@ -9,4 +9,4 @@ node_modules
 variaveisAmbiente.js
 
 # ignore a pasta sec
-sec
+*.pem
